@@ -48,27 +48,26 @@
   background-clip: padding-box;
   overflow: hidden;
   z-index: 1000;
-}
 
-.page-loader-bar::before,
-.page-loader-bar::after {
-  content: "";
-  position: absolute;
-  will-change: left, right;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  background-color: var(--cake-color-progress);
-}
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    will-change: left, right;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    background-color: var(--cake-color-progress);
+  }
 
-.page-loader-bar::before {
-  animation: indeterminate 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite;
-}
+  &::before {
+    animation: indeterminate 2.1s cubic-bezier(0.65, 0.815, 0.735, 0.395) infinite;
+  }
 
-.page-loader-bar::after {
-  content: "";
-  animation: indeterminate-short 2.1s cubic-bezier(0.165, 0.84, 0.44, 1) infinite;
-  animation-delay: 1.15s;
+  &::after {
+    animation: indeterminate-short 2.1s cubic-bezier(0.165, 0.84, 0.44, 1) infinite;
+    animation-delay: 1.15s;
+  }
 }
 
 @keyframes indeterminate {
