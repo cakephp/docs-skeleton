@@ -77,6 +77,30 @@ export default {
 
 All markdown documentation files should be placed in the `docs/` directory.
 
+### Text Substitutions
+
+You can use placeholders in your markdown files that will be automatically replaced with configured values. This is useful for version numbers or other values that need to be updated across multiple files.
+
+**Configuration** (`config.js`):
+
+```javascript
+export default {
+  substitutions: {
+    '|phpversion|': { value: '8.4', format: 'bold' },
+    '|minphpversion|': { value: '8.1', format: 'italic' },
+    '|myversion|': '1.0.0'  // Simple string without formatting
+  }
+}
+```
+
+**Usage in Markdown**:
+
+```markdown
+This plugin requires PHP |phpversion| or higher (minimum |minphpversion|).
+```
+
+**Result**: This plugin requires PHP **8.4** or higher (minimum *8.1*).
+
 ## Project Structure
 
 ```

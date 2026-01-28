@@ -1,5 +1,5 @@
 import { defineConfig } from 'vitepress'
-import { versionReplacer } from './plugins/version-replacer.js'
+import { substitutionsReplacer } from './plugins/substitutions-replacer.js'
 import { deepMerge, loadConfigOverrides, applyBaseToHeadTags } from './utils.js'
 
 const defaultConfig = {
@@ -7,9 +7,12 @@ const defaultConfig = {
   title: 'CakePHP',
   description: 'CakePHP Documentation - The rapid development PHP framework',
   ignoreDeadLinks: true,
-  phpVersions: {
-    phpversion: '8.4',
-    minphpversion: '8.1'
+  substitutions: {
+    '|phpversion|': { value: '8.4', format: 'bold' },
+    '|minphpversion|': { value: '8.1', format: 'italic' },
+    // Add more substitutions here as needed
+    // '|cakeversion|': { value: '5.1', format: 'bold' },
+    // '|projectname|': 'CakePHP',  // Simple string without formatting
   },
   head: [
     ['link', { rel: 'icon', type: 'image/png', href: '/favicon/favicon-96x96.png', sizes: '96x96' }],
@@ -59,7 +62,7 @@ const mergedConfig = deepMerge(defaultConfig, overrides)
 
 // Configure markdown plugins after mergedConfig is available
 mergedConfig.markdown.config = (md) => {
-  md.use(versionReplacer, mergedConfig.phpVersions || {})
+  md.use(substitutionsReplacer, { substitutions: mergedConfig.substitutions || {} })
 }
 
 // Apply base path to head tags if base is specified
