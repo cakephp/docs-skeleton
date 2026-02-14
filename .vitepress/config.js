@@ -21,6 +21,14 @@ const defaultConfig = {
     ['link', { rel: 'apple-touch-icon', sizes: '180x180', href: '/favicon/apple-touch-icon.png' }],
     ['meta', { name: 'apple-mobile-web-app-title', content: 'CakePHP' }],
     ['link', { rel: 'manifest', href: '/favicon/site.webmanifest' }],
+    [
+      'script',
+      {
+        'data-collect-dnt': 'true',
+        async: 'true',
+        src: 'https://scripts.simpleanalyticscdn.com/latest.js'
+      }
+    ]
   ],
   themeConfig: {
     logo: '/logo.svg',
