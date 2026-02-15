@@ -28,6 +28,18 @@ const defaultConfig = {
         async: 'true',
         src: 'https://scripts.simpleanalyticscdn.com/latest.js'
       }
+    ],
+    [
+      'script',
+      { async: '', src: 'https://www.googletagmanager.com/gtag/js?id=G-MD3J6G9QVX' }
+    ],
+    [
+      'script',
+      {},
+      `window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-MD3J6G9QVX', { 'anonymize_ip': true });`
     ]
   ],
   themeConfig: {
