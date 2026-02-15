@@ -14,7 +14,7 @@ const { isDark } = useData()
       <img
         :src="isDark
           ? 'https://simpleanalyticsbadges.com/?mode=dark&background=1a1a1a&text=ff6b6b'
-          : 'https://simpleanalyticsbadges.com/?mode=light&background=d33c43&text=ffffff'"
+          : 'https://simpleanalyticsbadges.com/?mode=light&background=ffffff&text=d33c43'"
         loading="lazy"
         referrerpolicy="no-referrer"
         crossorigin="anonymous"
