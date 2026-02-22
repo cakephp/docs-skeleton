@@ -61,6 +61,7 @@ const defaultConfig = {
         timeStyle: 'medium'
       }
     },
+    versionBanner: false
   },
   build: {
     rollupOptions: {

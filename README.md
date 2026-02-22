@@ -71,6 +71,22 @@ export default {
 }
 ```
 
+### Version Banner
+
+You can display an e.g. "Outdated Version" banner on your documentation site by adding the following configuration:
+
+```javascript
+export default {
+  themeConfig: {
+    versionBanner: {
+      message: 'You are viewing an older version of this documentation.',
+      link: '/latest/',
+      linkText: 'Go to latest docs.'
+    }
+  }
+}
+```
+
 ## Writing Documentation
 
 ### Content Location
