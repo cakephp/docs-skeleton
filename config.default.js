@@ -19,6 +19,11 @@
  *         { text: 'Home', link: '/' },
  *         { text: 'Guide', link: '/guide' }
  *       ]
+ *     },
+ *     versionBanner: {
+ *       message: 'You are viewing an older version of this documentation.',
+ *       link: '/latest/',
+ *       linkText: 'Go to latest docs.'
  *     }
  *   }
  * }

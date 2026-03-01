@@ -128,3 +128,8 @@
 .VPDoc.has-aside .content-container {
   max-width: 100% !important;
 }
+
+/** Adjust content padding when version banner is present **/
+.has-version-banner .VPContent {
+  padding-top: calc(var(--vp-nav-height) + 30px);
+}
