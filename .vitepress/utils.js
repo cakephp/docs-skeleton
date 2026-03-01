@@ -4,21 +4,20 @@ import { dirname, join } from 'path'
 
 // Deep merge function to handle nested objects
 export function deepMerge(target, source) {
+  if (!isObject(target) || !isObject(source)) {
+    return source
+  }
+
   const output = { ...target }
 
-  if (isObject(target) && isObject(source)) {
-    Object.keys(source).forEach(key => {
-      if (isObject(source[key])) {
-        if (!(key in target)) {
-          output[key] = source[key]
-        } else {
-          output[key] = deepMerge(target[key], source[key])
-        }
-      } else {
-        output[key] = source[key]
-      }
-    })
-  }
+  Object.keys(source).forEach(key => {
+    if (isObject(source[key]) && isObject(target[key])) {
+      output[key] = deepMerge(target[key], source[key])
+      return
+    }
+
+    output[key] = source[key]
+  })
 
   return output
 }
