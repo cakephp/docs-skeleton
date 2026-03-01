@@ -105,7 +105,7 @@ onUnmounted(() => {
     aria-live="polite"
   >
     {{ message }}
-    <a v-if="link" :href="link">{{ linkText }}</a>
+    <a v-if="link" :href="link" target="_self">{{ linkText }}</a>
   </div>
 </template>
 
