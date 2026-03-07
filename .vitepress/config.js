@@ -1,4 +1,5 @@
 import { defineConfig } from 'vitepress'
+import deflist from 'markdown-it-deflist'
 import { substitutionsReplacer } from './plugins/substitutions-replacer.js'
 import { deepMerge, loadConfigOverrides, applyBaseToHeadTags } from './utils.js'
 
@@ -83,6 +84,7 @@ const mergedConfig = deepMerge(defaultConfig, overrides)
 
 // Configure markdown plugins after mergedConfig is available
 mergedConfig.markdown.config = (md) => {
+  md.use(deflist)
   md.use(substitutionsReplacer, { substitutions: mergedConfig.substitutions || {} })
 }
 
