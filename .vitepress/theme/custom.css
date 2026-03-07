@@ -123,8 +123,24 @@
   }
 }
 
-/** Improve content container real-estate **/
-/** see: https://github.com/vuejs/vitepress/discussions/1646 **/
-.VPDoc.has-aside .content-container {
-  max-width: 100% !important;
+/* Definition Lists */
+.vp-doc dl {
+  margin: 16px 0;
+  padding: 0;
+}
+
+.vp-doc dt {
+  font-weight: 600;
+  margin-top: 16px;
+  font-family: var(--vp-font-family-mono);
+  font-size: 0.95em;
+}
+
+.vp-doc dt:first-child {
+  margin-top: 0;
+}
+
+.vp-doc dd {
+  margin: 4px 0 0 0;
+  padding-left: 24px;
 }
