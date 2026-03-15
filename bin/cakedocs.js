@@ -27,24 +27,32 @@ export default {
 const THEME_INDEX_TEMPLATE = `export { default } from '@cakephp/docs-skeleton'
 `
 
+function out(message) {
+  process.stdout.write(message.endsWith('\n') ? message : `${message}\n`)
+}
+
+function err(message) {
+  process.stderr.write(message.endsWith('\n') ? message : `${message}\n`)
+}
+
 function writeIfMissing(filePath, content, label) {
   if (existsSync(filePath)) {
-    console.log(`  skip  ${label} (already exists)`)
+    out(`  skip  ${label} (already exists)`)
     return
   }
   mkdirSync(dirname(filePath), { recursive: true })
   writeFileSync(filePath, content, 'utf8')
-  console.log(`  create ${label}`)
+  out(`  create ${label}`)
 }
 
 function runInit() {
   const cwd = process.cwd()
-  console.log(`Scaffolding @cakephp/docs-skeleton in ${cwd}\n`)
+  out(`Scaffolding @cakephp/docs-skeleton in ${cwd}\n`)
 
   writeIfMissing(join(cwd, '.vitepress', 'config.js'), VITEPRESS_CONFIG_TEMPLATE, '.vitepress/config.js')
   writeIfMissing(join(cwd, '.vitepress', 'theme', 'index.js'), THEME_INDEX_TEMPLATE, '.vitepress/theme/index.js')
 
-  console.log(`
+  out(`
 Done! Next steps:
 
   1. Add your docs to docs/
@@ -58,7 +66,7 @@ switch (command) {
     runInit()
     break
   default:
-    console.log(`
+    err(`
 Usage: cakedocs <command>
 
 Commands:

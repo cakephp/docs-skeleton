@@ -1,5 +1,4 @@
 import { substitutionsReplacer } from '../.vitepress/plugins/substitutions-replacer.js'
-import { applyBaseToHeadTags } from '../.vitepress/utils.js'
 import { fileURLToPath } from 'node:url'
 import path from 'node:path'
 import fs from 'node:fs'
