@@ -155,6 +155,9 @@ const baseConfig = {
   locales: {},
   themeDir: packageThemeDir,
   vite: {
+    ssr: {
+      noExternal: ['@cakephp/docs-skeleton', 'vitepress']
+    },
     plugins: [
       createSkeletonPublicAssetsPlugin()
     ]
