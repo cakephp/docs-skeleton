@@ -1,4 +1,25 @@
 {
+    "name": "@cakephp/docs-skeleton",
+    "version": "1.0.0",
+    "type": "module",
+    "exports": {
+        ".": "./.vitepress/theme/index.js",
+        "./config": "./config/index.js"
+    },
+    "bin": {
+        "cakedocs": "./bin/cakedocs.js"
+    },
+    "files": [
+        ".vitepress/theme/",
+        ".vitepress/plugins/",
+        ".vitepress/utils.js",
+        "config/",
+        "bin/",
+        "docs/public/"
+    ],
+    "peerDependencies": {
+        "vitepress": "^2.0.0-alpha.15"
+    },
     "devDependencies": {
         "@eslint/js": "^9.15.0",
         "eslint": "^9.39.2",
@@ -8,7 +29,6 @@
         "vitepress-plugin-llms": "^1.7.5",
         "vue": "^3.5.21"
     },
-    "type": "module",
     "scripts": {
         "docs:dev": "vitepress dev . --base /",
         "docs:build": "vitepress build",

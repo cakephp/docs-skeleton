@@ -1,85 +1,137 @@
-# CakePHP Documentation Skeleton
+# CakePHP Documentation Theme
 
-A [VitePress](https://vitepress.dev/) based documentation skeleton for creating CakePHP branded documentation sites.
+A distributable [VitePress](https://vitepress.dev/) theme for CakePHP documentation sites. Install it as an npm dependency — it provides the CakePHP-branded theme, default config, and shared assets.
 
 ## Features
 
-- 🎨 CakePHP branded theme and styling
-- ⚙️ Easy configuration overrides
+- CakePHP branded theme extending VitePress default (custom fonts, colors, components)
+- Base config with sensible defaults (favicon, analytics, search, footer)
+- Text substitutions for version placeholders (`|phpversion|`, etc.)
+- Version banner component for outdated docs
+- Public asset syncing (favicon, fonts, icons, logo)
 
-## Getting Started
+## Using in a docs project
 
-### Installation
+### 1. Install
 
 ```bash
-npm install
+npm install @cakephp/docs-skeleton vitepress
 ```
 
-### Development
+### 2. Scaffold boilerplate
 
-Start the development server:
+```bash
+npx cakedocs init
+```
+
+This creates two files:
+
+| File | Purpose |
+|---|---|
+| `.vitepress/config.js` | Extends the skeleton's base config |
+| `.vitepress/theme/index.js` | Re-exports the CakePHP theme |
+
+### 3. Configure
+
+Edit `.vitepress/config.js` — your overrides are merged with the base config via VitePress `extends`:
+
+```javascript
+import baseConfig from '@cakephp/docs-skeleton/config'
+
+export default {
+  extends: baseConfig,
+  base: '/5.x/',
+  themeConfig: {
+    sidebar: [],
+    nav: [],
+    socialLinks: [
+      { icon: 'github', link: 'https://github.com/cakephp/cakephp' },
+    ],
+  },
+  substitutions: {
+    '|phpversion|': { value: '8.4', format: 'bold' },
+    '|minphpversion|': { value: '8.1', format: 'italic' },
+  },
+}
+```
+
+### 4. Add scripts to `package.json`
+
+```json
+{
+  "scripts": {
+    "docs:dev":     "vitepress dev",
+    "docs:build":   "vitepress build",
+    "docs:preview": "vitepress preview"
+  }
+}
+```
+
+### 5. Run
 
 ```bash
 npm run docs:dev
 ```
 
-The documentation will be available at `http://localhost:5173`
+### Project structure
 
-### Building for Production
-
-Build the static site:
-
-```bash
-npm run docs:build
+```
+your-project/
+├── .vitepress/
+│   ├── config.js              ← extends base config
+│   └── theme/
+│       └── index.js           ← re-exports theme
+├── docs/
+│   └── index.md
+└── package.json
 ```
 
-Preview the production build:
+---
 
-```bash
-npm run docs:preview
-```
+## Extending the theme
 
-## Configuration
-
-### Default Configuration
-
-The default VitePress configuration is located in `.vitepress/config.js`. This file contains all the base settings for your documentation site.
-
-For detailed information about VitePress configuration options, please refer to the [VitePress Configuration Reference](https://vitepress.dev/reference/site-config).
-
-### Custom Overrides
-
-To customize the configuration without modifying the core files:
-
-1. Copy `config.default.js` to `config.js` in the project root
-2. Add your configuration overrides to the exported object
-3. Your overrides will be deep merged with the default configuration
-
-**Example** (`config.js`):
+The theme re-export in `.vitepress/theme/index.js` can be customized:
 
 ```javascript
+import CakephpTheme from '@cakephp/docs-skeleton'
+import { h } from 'vue'
+import MyBanner from './components/MyBanner.vue'
+
 export default {
-  title: 'My Plugin Documentation',
-  themeConfig: {
-    sidebar: {
-      '/': [
-        { text: 'Home', link: '/' },
-        { text: 'Guide', link: '/guide' }
-      ]
-    }
+  extends: CakephpTheme,
+  Layout() {
+    return h(CakephpTheme.Layout, null, {
+      'layout-top': () => h(MyBanner),
+    })
   }
 }
 ```
 
-### Version Banner
+## Text Substitutions
 
-You can display an e.g. "Outdated Version" banner on your documentation site by adding the following configuration:
+Define placeholders replaced automatically in all Markdown:
 
 ```javascript
 export default {
+  extends: baseConfig,
+  substitutions: {
+    '|phpversion|':    { value: '8.4', format: 'bold' },
+    '|minphpversion|': { value: '8.1', format: 'italic' },
+    '|cakeversion|':   '5.2',
+  }
+}
+```
+
+In Markdown: `Requires PHP |phpversion| or higher.` renders as: Requires PHP **8.4** or higher.
+
+## Version Banner
+
+```javascript
+export default {
+  extends: baseConfig,
   themeConfig: {
     versionBanner: {
-      message: 'You are viewing an older version of this documentation.',
+      message: 'You are viewing docs for an older version.',
       link: '/latest/',
       linkText: 'Go to latest docs.'
     }
@@ -87,68 +139,20 @@ export default {
 }
 ```
 
-## Writing Documentation
+---
 
-### Content Location
+## Skeleton development
 
-All markdown documentation files should be placed in the `docs/` directory.
-
-### Text Substitutions
-
-You can use placeholders in your markdown files that will be automatically replaced with configured values. This is useful for version numbers or other values that need to be updated across multiple files.
-
-**Configuration** (`config.js`):
-
-```javascript
-export default {
-  substitutions: {
-    '|phpversion|': { value: '8.4', format: 'bold' },
-    '|minphpversion|': { value: '8.1', format: 'italic' },
-    '|myversion|': '1.0.0'  // Simple string without formatting
-  }
-}
-```
-
-**Usage in Markdown**:
-
-```markdown
-This plugin requires PHP |phpversion| or higher (minimum |minphpversion|).
-```
-
-**Result**: This plugin requires PHP **8.4** or higher (minimum *8.1*).
-
-## Project Structure
-
-```
-.
-├── .vitepress/           # VitePress configuration
-│   ├── config.js         # Main VitePress config (defaults)
-│   ├── utils.js          # Utility functions
-│   ├── theme/            # Custom theme components
-│   └── plugins/          # Markdown-it plugins
-├── docs/                 # Documentation content (markdown files)
-├── config.js             # Your configuration overrides (create from config.default.js)
-└── config.default.js     # Template for configuration overrides
-```
-
-## Linting
-
-Lint your configuration and scripts:
+To work on the skeleton theme itself:
 
 ```bash
+npm install
+npm run docs:dev      # preview at http://localhost:5173
+npm run docs:build
 npm run lint
-```
-
-Auto-fix linting issues:
-
-```bash
 npm run lint:fix
 ```
 
 ## License
 
 Licensed under The MIT License. For full copyright and license information, please see the [LICENSE](LICENSE) file.
-
-## About CakePHP
-
-CakePHP is a rapid development framework for PHP which uses commonly known design patterns like Associative Data Mapping, Front Controller, and MVC. Learn more at [https://cakephp.org](https://cakephp.org)
