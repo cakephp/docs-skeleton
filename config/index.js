@@ -148,9 +148,6 @@ const baseConfig = {
   },
   markdown: {
     lineNumbers: true,
-    config: (md) => {
-      md.use(substitutionsReplacer, { substitutions: baseConfig.substitutions || {} })
-    }
   },
   locales: {},
   themeDir: packageThemeDir,
@@ -164,4 +161,5 @@ const baseConfig = {
   }
 }
 
+export { substitutionsReplacer }
 export default baseConfig
