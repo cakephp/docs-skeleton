@@ -118,6 +118,7 @@ const baseConfig = {
   ],
   themeConfig: {
     logo: '/logo.svg',
+    siteTitle: false,
     outline: {
       level: [2, 3],
     },
@@ -135,7 +136,8 @@ const baseConfig = {
         timeStyle: 'medium'
       }
     },
-    versionBanner: false
+    versionBanner: false,
+    pluginName: false
   },
   build: {
     rollupOptions: {
