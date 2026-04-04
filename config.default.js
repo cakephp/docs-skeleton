@@ -24,7 +24,8 @@
  *       message: 'You are viewing an older version of this documentation.',
  *       link: '/latest/',
  *       linkText: 'Go to latest docs.'
- *     }
+ *     },
+ *     pluginName: 'Authentication'
  *   }
  * }
  */
